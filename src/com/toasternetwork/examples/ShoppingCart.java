@@ -2,15 +2,62 @@ package com.toasternetwork.examples;
 
 import java.util.*;
 
-public class ShoppingCart {
+public class ShoppingCart extends Menulet<Object> {
 	private final double tax = 1.0775;
-	private final List<Product> cart;
+	protected final List<Product> cart;
+	private final MainMenu mainMenu;
+	protected Scanner input;
+
 
 	/**
 	 * A New Shopping Cart
 	 */
-	public ShoppingCart() {
+	public ShoppingCart(MainMenu menu) {
 		cart = new ArrayList<>();
+		input = new Scanner(System.in);
+		mainMenu = menu;
+		build();
+	}
+
+	@Override
+	void build() {
+		menu.put("Remove Product", m -> {
+			Helper.clearScreen();
+			System.out.print("Line item: ");
+			int line = input.nextInt();
+			Product p = cart.get(line);
+			if(!removeProduct(p)) {
+				System.err.println("Specified line item could not be removed");
+				return this;
+			}
+			mainMenu.getStore().getProduct(p.getSku()).release(p.getQuantity());
+			return this;
+		});
+
+		menu.put("Modify Quantity", m -> {
+			Helper.clearScreen();
+			System.out.print("Line item: ");
+			int line = input.nextInt() - 1;
+			System.out.print("Quantity: ");
+			long qty = input.nextLong();
+			Product p = cart.get(line);
+			mainMenu.getStore().getProduct(p.getSku()).release(p.getQuantity());
+			mainMenu.getStore().getProduct(p.getSku()).reserve(qty);
+			updateProductQuantity(p.getSku(), qty);
+			return this;
+		});
+
+		menu.put("Show Bill", m -> {
+			Helper.clearScreen();
+			System.out.println(m);
+			calculateTotal(true);
+			return this;
+		});
+
+		menu.put("Main Menu", m -> {
+			Helper.clearScreen();
+			return mainMenu;
+		});
 	}
 
 	/**
@@ -18,8 +65,13 @@ public class ShoppingCart {
 	 * @param product The product
 	 */
 	public void addProduct(Product product, long quantity) {
-		product.setQuantity(quantity);
-		cart.add(product);
+		try {
+			Product clone = (Product)product.clone();
+			clone.setQuantity(quantity);
+			cart.add(clone);
+		} catch (CloneNotSupportedException cse) {
+			cse.printStackTrace();
+		}
 	}
 
 	/**
@@ -74,23 +126,25 @@ public class ShoppingCart {
 		return cart.remove(product);
 	}
 
-	public double calculateTotal() {
+	public double calculateTotal(boolean show) {
 		if(cart.size() == 0) {
 			System.out.println("Cart is empty!");
 			return 0;
 		}
 
 		double subtotal = cart.stream().mapToDouble(r -> r.getPrice() * r.getQuantity()).sum();
-		double total = MathHelper.round(subtotal * tax,2);
+		double total = Helper.round(subtotal * tax,2);
 
-		System.out.println("-----------------------------------------------");
-		System.out.println("Qty\tItem\t\t\tPrice");
-		System.out.println("---\t----\t\t\t-----");
-		cart.forEach(p -> System.out.printf("%d\t%s\t\t\t$%.2f\n", p.getQuantity(), p.getName(), p.getPrice()));
-		System.out.printf("Subtotal: $%.2f\n", subtotal);
-		System.out.printf("     Tax: %.2f%%\n", (tax - 1) * 100);
-		System.out.printf("   Total: $%.2f\n", total);
-		System.out.println("================================================");
+		if(show) {
+			System.out.println("-----------------------------------------------");
+			System.out.println("Qty\tItem\t\t\tPrice");
+			System.out.println("---\t----\t\t\t-----");
+			cart.forEach(p -> System.out.printf("%d\t%s\t\t\t$%.2f\n", p.getQuantity(), p.getName(), p.getPrice()));
+			System.out.printf("Subtotal: $%.2f\n", subtotal);
+			System.out.printf("     Tax: %.2f%%\n", (tax - 1) * 100);
+			System.out.printf("   Total: $%.2f\n", total);
+			System.out.println("================================================");
+		}
 		return total;
 	}
 

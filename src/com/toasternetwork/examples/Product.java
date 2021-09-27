@@ -1,11 +1,12 @@
 package com.toasternetwork.examples;
 
-public class Product {
+public class Product implements Cloneable {
 	private double price;
 	private String name;
 	private String description;
 	private long quantity;
 	private long sku;
+	private long reserved;
 
 	/**
 	 * Gets the SKU for the product
@@ -21,6 +22,40 @@ public class Product {
 	 */
 	public void setSku(long sku) {
 		this.sku = sku;
+	}
+
+	/**
+	 * Reserve stock from inventory
+	 * @param quantity The amount of stock to reserve
+	 */
+	public void reserve(long quantity) {
+		if(this.quantity < quantity) {
+			System.out.println("There is not enough stock to reserve");
+			return;
+		}
+		this.quantity -= quantity;
+		reserved += quantity;
+	}
+
+	/**
+	 * Release stock back into inventory
+	 * @param quantity The amount of stock to replenish back to inventory
+	 */
+	public void release(long quantity) {
+		if(quantity > reserved) {
+			System.out.println("There is not enough reserved to release!");
+			return;
+		}
+		this.quantity += quantity;
+		reserved -= quantity;
+	}
+
+	/**
+	 * Removes the amount of quantity from inventory
+	 * @param quantity Quantity
+	 */
+	public void sell(long quantity) {
+		this.quantity -= quantity;
 	}
 
 	/**
@@ -85,5 +120,15 @@ public class Product {
 	 */
 	public void setQuantity(long quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s\n\t%s\nSKU:%d\nPrice: %f\nStock: %d\nReserved: %d\n", name, description, sku, price, quantity, reserved);
 	}
 }

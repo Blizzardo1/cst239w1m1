@@ -6,16 +6,18 @@ public class StoreFront extends Inventory {
 	private final List<Employee> employees;
 	private final List<Register> registers;
 
+	private final MainMenu mainMenu;
 	private double storeFinance;
 
 	private final long storeId;
 
-	public StoreFront(long storeId, double storeFinance) {
-		super();
+	public StoreFront(long storeId, double storeFinance, MainMenu parent) {
+		super(parent);
 		this.storeId = storeId;
 		this.storeFinance = storeFinance;
 		employees = new ArrayList<>();
 		registers = new ArrayList<>();
+		mainMenu = parent;
 	}
 
 	/**
@@ -27,11 +29,19 @@ public class StoreFront extends Inventory {
 	}
 
 	/**
+	 * Gets the entire array of registers
+	 * @return Returns a list of Registers.
+	 */
+	public List<Register> getRegisters() {
+		return registers;
+	}
+
+	/**
 	 * Gets a register by ID number
 	 * @param id The ID of the register
 	 * @return The register by ID
 	 */
-	public  Register getRegister(int id) {
+	public Register getRegister(int id) {
 		if(id < 0) return null;
 
 		System.out.printf("Using Register %d\n", id+1);
@@ -44,7 +54,7 @@ public class StoreFront extends Inventory {
 	public void addRegister(int id) {
 		double itill = 100;
 		storeFinance -= itill;
-		registers.add(new Register(itill));
+		registers.add(new Register(itill, mainMenu, this));
 		System.out.printf("Added Register %d with $%f\n", id, itill);
 	}
 

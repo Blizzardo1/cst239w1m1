@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cst239w1m1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cst239w1m1_jar</output-path>
+    <root id="archive" name="cst239w1m1.jar">
+      <element id="module-output" name="cst239w1m1" />
+    </root>
+  </artifact>
+</component>

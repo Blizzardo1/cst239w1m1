@@ -1,15 +1,22 @@
 package com.toasternetwork.examples;
 
 import java.util.*;
+import java.util.function.Function;
 
-public class Inventory {
+public class Inventory extends Menulet<Object> {
 	private final List<Product> products;
+	private final MainMenu parent;
+	private final Scanner input;
 
 	/**
 	 * New Inventory
 	 */
-	public Inventory() {
+	public Inventory(MainMenu parent) {
+		super();
 		products = new ArrayList<>();
+		this.parent = parent;
+		input = new Scanner(System.in);
+		build();
 	}
 
 	/**
@@ -75,5 +82,30 @@ public class Inventory {
 		if(p == null) return;
 
 		p.setPrice(price);
+	}
+
+	@Override
+	public void build() {
+		super.menu.put("Add Product", m -> {
+			System.out.print("Name: ");
+			String name = input.nextLine();
+			System.out.print("Description: ");
+			String desc = input.nextLine();
+			System.out.print("Price: ");
+			double price = input.nextDouble();
+			System.out.print("Quantity: ");
+			long quantity = input.nextLong();
+
+			addProduct(name, desc, price, quantity);
+
+			return this;
+		});
+		super.menu.put("Modify Product", m -> null);
+		super.menu.put("Remove Product", m -> null);
+		super.menu.put("Show Inventory", m -> {
+			products.forEach(item -> System.out.println(item.toString()));
+			return this;
+		});
+		super.menu.put("Main Menu", m -> parent);
 	}
 }
