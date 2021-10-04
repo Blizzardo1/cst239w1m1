@@ -31,7 +31,6 @@ public class Register extends ShoppingCart {
 				return this;
 			}
 
-			p.reserve(qty);
 			addProduct(p, qty);
 			return this;
 
@@ -50,10 +49,14 @@ public class Register extends ShoppingCart {
 			for(Product p : cart){
 				long qty = inventory.getProduct(p.getSku()).getQuantity();
 				inventory.getProduct(p.getSku()).release(p.getQuantity());
-				inventory.updateProductQuantity(p.getSku(), qty - p.getQuantity());
+				inventory.updateProductQuantity(p.getSku(), qty);
 			}
 			finalizeCart();
 			return this;
+		});
+		menu.put("Cancel order", m -> {
+			cancelOrder();
+			return m;
 		});
 		menu.put("Show Till", m -> {
 			Helper.clearScreen();

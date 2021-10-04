@@ -1,11 +1,5 @@
 package com.toasternetwork.examples;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
-
 public class MainMenu extends Menulet<Object> {
 	private StoreFront store;
 	private RegisterMenu registers;

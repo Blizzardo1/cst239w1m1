@@ -1,7 +1,6 @@
 package com.toasternetwork.examples;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class Inventory extends Menulet<Object> {
 	private final List<Product> products;

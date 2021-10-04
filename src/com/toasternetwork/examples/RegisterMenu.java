@@ -1,7 +1,6 @@
 package com.toasternetwork.examples;
 
 import java.util.List;
-import java.util.function.Function;
 
 public class RegisterMenu extends Menulet<Object> {
 

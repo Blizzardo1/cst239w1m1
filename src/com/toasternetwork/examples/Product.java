@@ -1,6 +1,6 @@
 package com.toasternetwork.examples;
 
-public class Product implements Cloneable {
+public class Product implements Cloneable, Comparable<Product> {
 	private double price;
 	private String name;
 	private String description;
@@ -130,5 +130,10 @@ public class Product implements Cloneable {
 	@Override
 	public String toString() {
 		return String.format("%s\n\t%s\nSKU:%d\nPrice: %f\nStock: %d\nReserved: %d\n", name, description, sku, price, quantity, reserved);
+	}
+
+	@Override
+	public int compareTo(Product p) {
+		return name.compareToIgnoreCase(p.name);
 	}
 }

@@ -1,6 +1,7 @@
 package com.toasternetwork.examples;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoreFront extends Inventory {
 	private final List<Employee> employees;

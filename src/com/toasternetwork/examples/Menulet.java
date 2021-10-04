@@ -1,6 +1,8 @@
 package com.toasternetwork.examples;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 

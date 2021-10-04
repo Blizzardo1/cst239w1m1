@@ -1,6 +1,8 @@
 package com.toasternetwork.examples;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class ShoppingCart extends Menulet<Object> {
 	private final double tax = 1.0775;
@@ -67,6 +69,7 @@ public class ShoppingCart extends Menulet<Object> {
 	public void addProduct(Product product, long quantity) {
 		try {
 			Product clone = (Product)product.clone();
+			product.reserve(quantity);
 			clone.setQuantity(quantity);
 			cart.add(clone);
 		} catch (CloneNotSupportedException cse) {
@@ -152,7 +155,8 @@ public class ShoppingCart extends Menulet<Object> {
 	 * Clears out the entire order
 	 */
 	public void cancelOrder() {
-		System.out.println("Order cancelled");
+		cart.forEach(p -> mainMenu.getStore().getProduct(p.getSku()).release(p.getQuantity()));
 		cart.clear();
+		System.out.println("Order cancelled");
 	}
 }
