@@ -2,6 +2,9 @@ package com.toasternetwork.examples;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * A Register; Handles order processing
+ */
 public class Register extends ShoppingCart {
 	private double sales;
 	private double till;
@@ -13,6 +16,8 @@ public class Register extends ShoppingCart {
 	/**
 	 * A new Register
 	 * @param till The initial till
+	 * @param mainMenu The Parent Menu
+	 * @param inventory The Inventory
 	 */
 	public Register(double till, MainMenu mainMenu, Inventory inventory) {
 		super(mainMenu);

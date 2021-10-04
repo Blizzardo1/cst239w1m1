@@ -2,6 +2,9 @@ package com.toasternetwork.examples;
 
 import java.util.List;
 
+/**
+ * A menu of registers
+ */
 public class RegisterMenu extends Menulet<Object> {
 
 	private final MainMenu parent;
@@ -9,12 +12,21 @@ public class RegisterMenu extends Menulet<Object> {
 
 	private Register currentRegister;
 
+	/**
+	 * A new Register Menu
+	 * @param registers The list of Registers
+	 * @param parent The Parent Menu
+	 */
 	public RegisterMenu(List<Register> registers, MainMenu parent) {
 		this.registers = registers;
 		this.parent = parent;
 		build();
 	}
 
+	/**
+	 * Gets the currently selected Register
+	 * @return An instance of a Register
+	 */
 	public Register getCurrentRegister() {
 		return currentRegister;
 	}

@@ -1,15 +1,45 @@
 package com.toasternetwork.examples;
 
+/**
+ * A Game Object
+ */
 public abstract class GameObject {
+
+	/**
+	 * X-Coordinate
+	 */
 	protected float x;
+
+	/**
+	 * Y-Coordinate
+	 */
 	protected float y;
+
+	/**
+	 * Width
+	 */
 	protected float width;
+
+	/**
+	 * Height
+	 */
 	protected float height;
 
+
 	private final float speed = 3.15f;
+
+	/**
+	 * X-Speed
+	 */
 	protected float xSpeed = speed;
+	/**
+	 * Y-Speed
+	 */
 	protected float ySpeed = speed;
 
+	/**
+	 * A new instance of a Game Object
+	 */
 	public GameObject() {
 
 	}

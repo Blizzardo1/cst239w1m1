@@ -2,6 +2,9 @@ package com.toasternetwork.examples;
 
 import java.util.*;
 
+/**
+ * The Inventory of a Store
+ */
 public class Inventory extends Menulet<Object> {
 	private final List<Product> products;
 	private final MainMenu parent;
@@ -9,6 +12,7 @@ public class Inventory extends Menulet<Object> {
 
 	/**
 	 * New Inventory
+	 * @param parent The Parent Menu
 	 */
 	public Inventory(MainMenu parent) {
 		super();

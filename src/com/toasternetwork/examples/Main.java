@@ -1,6 +1,13 @@
 package com.toasternetwork.examples;
 
+/**
+ * Main!
+ */
 public class Main {
+    /**
+     * The Main Entrypoint
+     * @param args *Not used*
+     */
     public static void main(String[] args) {
         System.out.println("Store Front v1.0");
 

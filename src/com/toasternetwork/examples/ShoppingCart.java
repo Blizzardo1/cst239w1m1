@@ -4,15 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A Shopping Cart - An Order
+ */
 public class ShoppingCart extends Menulet<Object> {
 	private final double tax = 1.0775;
+	/**
+	 * The list of Products to be calculated and sold
+	 */
 	protected final List<Product> cart;
 	private final MainMenu mainMenu;
+	/**
+	 * The Console input
+	 */
 	protected Scanner input;
 
 
 	/**
 	 * A New Shopping Cart
+	 * @param menu The Parent menu
 	 */
 	public ShoppingCart(MainMenu menu) {
 		cart = new ArrayList<>();
@@ -65,6 +75,7 @@ public class ShoppingCart extends Menulet<Object> {
 	/**
 	 * Adds a product to the cart
 	 * @param product The product
+	 * @param quantity The amount to add
 	 */
 	public void addProduct(Product product, long quantity) {
 		try {
@@ -129,6 +140,11 @@ public class ShoppingCart extends Menulet<Object> {
 		return cart.remove(product);
 	}
 
+	/**
+	 * Calculates the total of the bill
+	 * @param show Show the bill during a calculation
+	 * @return The current total of the bill
+	 */
 	public double calculateTotal(boolean show) {
 		if(cart.size() == 0) {
 			System.out.println("Cart is empty!");

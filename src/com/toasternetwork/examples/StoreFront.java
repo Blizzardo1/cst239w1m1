@@ -3,6 +3,9 @@ package com.toasternetwork.examples;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Store
+ */
 public class StoreFront extends Inventory {
 	private final List<Employee> employees;
 	private final List<Register> registers;
@@ -12,6 +15,12 @@ public class StoreFront extends Inventory {
 
 	private final long storeId;
 
+	/**
+	 * A new Store Front
+	 * @param storeId The Store's number
+	 * @param storeFinance The initial finances for the Store
+	 * @param parent The Parent Menu
+	 */
 	public StoreFront(long storeId, double storeFinance, MainMenu parent) {
 		super(parent);
 		this.storeId = storeId;
@@ -51,6 +60,7 @@ public class StoreFront extends Inventory {
 
 	/**
 	 * Adds a new Register with $100
+	 * @param id The Identification number for the register
 	 */
 	public void addRegister(int id) {
 		double itill = 100;

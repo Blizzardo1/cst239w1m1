@@ -1,5 +1,8 @@
 package com.toasternetwork.examples;
 
+/**
+ * A Product
+ */
 public class Product implements Cloneable, Comparable<Product> {
 	private double price;
 	private String name;

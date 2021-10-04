@@ -1,5 +1,8 @@
 package com.toasternetwork.examples;
 
+/**
+ * An Employee
+ */
 public class Employee {
 	private String firstName;
 	private String lastName;
@@ -9,6 +12,10 @@ public class Employee {
 	private Supervisor supervisor;
 
 
+	/**
+	 * A new Employee
+	 * @param employeeId The Employee's Identification Number
+	 */
 	public Employee(long employeeId) {
 		this.employeeId = employeeId;
 	}
