@@ -1,5 +1,7 @@
 package com.toasternetwork.examples;
 
+import org.json.simple.JSONObject;
+
 /**
  * Main!
  */
@@ -14,9 +16,21 @@ public class Main {
         MainMenu menu = new MainMenu();
 
         StoreFront store = new StoreFront(1, 2500000, menu);
+        JsonDb json;
+        JSONObject settings;
+
         menu.setStore(store);
         store.addRegisters(4);
         menu.setRegisters(new RegisterMenu(store.getRegisters(), menu));
+
+        try {
+            json = new JsonDb("settings.json");
+            settings = json.readFile();
+        } catch (Exception e) {
+            System.out.println("Bad JSON!");
+            e.printStackTrace();
+            return;
+        }
 
         Menulet<?> currentMenu = menu;
         Manager mgr = new Manager(0);

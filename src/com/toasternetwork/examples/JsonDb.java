@@ -26,6 +26,10 @@ public class JsonDb {
         checkFile();
     }
 
+    /**
+     * Identifies whether the file is an actual file
+     * @throws Exception The file is not a file
+     */
     private void checkFile() throws Exception {
         if(!file.isFile()) throw new Exception("Not a File");
         if(file.canRead())
@@ -51,5 +55,13 @@ public class JsonDb {
      */
     public void writeContents(JSONObject json) throws IOException {
         writer.write(json.toJSONString());
+    }
+
+    /**
+     * Gets the registered filename of the instantiated object
+     * @return The filename registered with the instantiated object
+     */
+    public String getFileName() {
+        return fileName;
     }
 }
