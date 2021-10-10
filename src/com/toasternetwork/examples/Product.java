@@ -132,7 +132,7 @@ public class Product implements Cloneable, Comparable<Product> {
 
 	@Override
 	public String toString() {
-		return String.format("%s\n\t%s\nSKU:%d\nPrice: %f\nStock: %d\nReserved: %d\n", name, description, sku, price, quantity, reserved);
+		return String.format("%s\n\t%s\nSKU: %d\nPrice: %f\nStock: %d\nReserved: %d\n", name, description, sku, price, quantity, reserved);
 	}
 
 	@Override

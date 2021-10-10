@@ -1,5 +1,7 @@
 package com.toasternetwork.examples;
 
+import java.io.IOException;
+
 /**
  * The Main Menu
  */
@@ -54,9 +56,16 @@ public class MainMenu extends Menulet<Object> {
 		menu.put("Registers", m -> getRegisters());
 		menu.put("Inventory", m -> store);
 		menu.put("Management", m -> null);
+		menu.put("Commit Inventory", m -> {
+			try {
+				InventoryDatabase.getInstance().writeContents(store.getProducts());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return m;
+		});
 		menu.put("Close Store", m -> {
 			Helper.clearScreen();
-			m.display();
 			System.out.println(m);
 			System.out.println("Goodbye!");
 			System.exit(0);

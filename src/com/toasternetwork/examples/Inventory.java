@@ -1,12 +1,13 @@
 package com.toasternetwork.examples;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
  * The Inventory of a Store
  */
 public class Inventory extends Menulet<Object> {
-	private final List<Product> products;
+	private final ArrayList<Product> products;
 	private final MainMenu parent;
 	private final Scanner input;
 
@@ -23,6 +24,17 @@ public class Inventory extends Menulet<Object> {
 	}
 
 	/**
+	 * Commits to inventory
+	 */
+	private void commit() {
+		try {
+			InventoryDatabase.getInstance().writeContents(products);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Adds a new product to inventory
 	 * @param name The new name of the product
 	 * @param description The description
@@ -35,8 +47,21 @@ public class Inventory extends Menulet<Object> {
 		p.setDescription(description);
 		p.setPrice(price);
 		p.setQuantity(quantity);
-		p.setSku(products.toArray().length + 1);
+		if(products.size() < 1)
+			p.setSku(1);
+		else
+			p.setSku(products.get(products.size()-1).getSku() + 1);
 		products.add(p);
+		commit();
+	}
+
+	/**
+	 * Adds an existing product to inventory; likely from an external database
+	 * @param product The product
+	 */
+	public void addProduct(Product product) {
+		products.add(product);
+		commit();
 	}
 
 	/**
@@ -64,6 +89,14 @@ public class Inventory extends Menulet<Object> {
 	}
 
 	/**
+	 * Gets the entire inventory
+	 * @return The entire inventory
+	 */
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	/**
 	 * Updates the product's quantity
 	 * @param sku The SKU
 	 * @param quantity The new quantity
@@ -73,6 +106,7 @@ public class Inventory extends Menulet<Object> {
 		if(p == null) return;
 
 		p.setQuantity(quantity);
+		commit();
 	}
 
 	/**
@@ -85,6 +119,7 @@ public class Inventory extends Menulet<Object> {
 		if(p == null) return;
 
 		p.setPrice(price);
+		commit();
 	}
 
 	@Override
@@ -104,7 +139,19 @@ public class Inventory extends Menulet<Object> {
 			return this;
 		});
 		super.menu.put("Modify Product", m -> null);
-		super.menu.put("Remove Product", m -> null);
+		super.menu.put("Remove Product", m -> {
+			System.out.print("Sku: ");
+			long sku = input.nextLong();
+			Product pro = getProduct(sku);
+			if(products.remove(pro)) {
+				System.out.printf("The product \"%s\" has been successfully removed from inventory\n", pro.getName());
+				commit();
+			} else {
+				System.out.printf("Could not remove \"%s\" successfully", pro.getName());
+			}
+
+			return this;
+		});
 		super.menu.put("Show Inventory", m -> {
 			products.forEach(item -> System.out.println(item.toString()));
 			return this;
