@@ -28,7 +28,7 @@ public class Inventory extends Menulet<Object> {
 	 */
 	private void commit() {
 		try {
-			InventoryDatabase.getInstance().writeContents(products);
+			InventoryDatabase.writeContents(products);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -17,7 +17,6 @@ public class Main {
         MainMenu menu = new MainMenu();
 
         StoreFront store = new StoreFront(1, 2500000, menu);
-        InventoryDatabase json;
         List<Product> products = null;
 
         menu.setStore(store);
@@ -25,8 +24,8 @@ public class Main {
         menu.setRegisters(new RegisterMenu(store.getRegisters(), menu));
 
         try {
-            json = new InventoryDatabase("inventory.json");
-            products = json.readFile();
+            InventoryDatabase.open("inventory.json");
+            products = InventoryDatabase.readFile();
 
         } catch (Exception e) {
             System.out.println("The database is empty");
