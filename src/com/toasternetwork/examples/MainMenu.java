@@ -55,7 +55,7 @@ public class MainMenu extends Menulet<Object> {
 
 		menu.put("Registers", m -> getRegisters());
 		menu.put("Inventory", m -> store);
-		menu.put("Management", m -> null);
+		menu.put("Management", m -> m);
 		menu.put("Commit Inventory", m -> {
 			try {
 				InventoryDatabase.writeContents(store.getProducts());

@@ -1,8 +1,6 @@
 package com.toasternetwork.examples;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
@@ -14,7 +12,8 @@ public abstract class Menulet<T> {
 	/**
 	 * The core menu mapping with a function binding of a wildcard menulet and a returnable generic specified returnable type
 	 */
-	protected Map<String, Function<Menulet<?>,T>> menu;
+	protected LinkedHashMap<String, Function<Menulet<?>,T>> menu;
+
 	/**
 	 * Whether the menu is built or not. *Prevents rebuilding of the menu unless the menu needs to be rebuilt*
 	 */
@@ -24,7 +23,8 @@ public abstract class Menulet<T> {
 	 * A new instance of a Menulet
 	 */
 	public Menulet() {
-		menu = new HashMap<>();
+		menu = new LinkedHashMap<>();
+
 	}
 
 	/**
