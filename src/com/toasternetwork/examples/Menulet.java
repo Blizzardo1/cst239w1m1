@@ -24,7 +24,6 @@ public abstract class Menulet<T> {
 	 */
 	public Menulet() {
 		menu = new LinkedHashMap<>();
-
 	}
 
 	/**
