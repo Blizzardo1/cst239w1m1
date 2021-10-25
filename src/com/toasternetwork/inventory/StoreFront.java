@@ -1,5 +1,6 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,8 @@ import java.util.List;
  * A Store
  */
 public class StoreFront extends Inventory {
-	private final List<Employee> employees;
-	private final List<Register> registers;
+	private final ArrayList<Employee> employees;
+	private final ArrayList<Register> registers;
 
 	private final MainMenu mainMenu;
 	private double storeFinance;
@@ -66,7 +67,7 @@ public class StoreFront extends Inventory {
 		double itill = 100;
 		storeFinance -= itill;
 		registers.add(new Register(itill, mainMenu, this));
-		System.out.printf("Added Register %d with $%f\n", id, itill);
+		// System.out.printf("Added Register %d with $%f\n", id, itill);
 	}
 
 	/**
@@ -104,9 +105,10 @@ public class StoreFront extends Inventory {
 	 * @param employeeId Their new Id, must be unique
 	 * @param wage Their starting salary
 	 * @param position Their new position
+	 * @param role The given role
 	 * @param supervisor Supervisor approval
 	 */
-	public void hire(String firstName, String lastName, long employeeId, double wage, String position, Supervisor supervisor) {
+	public void hire(String firstName, String lastName, long employeeId, double wage, String position, Role role, Supervisor supervisor) {
 		if(supervisor == null) return;
 
 		// TODO: Implement supervisor approval
@@ -116,6 +118,15 @@ public class StoreFront extends Inventory {
 		employee.setWage(wage);
 		employee.setPosition(position);
 		employee.setSales(0);
+		employee.setRole(role);
+		employees.add(employee);
+	}
+
+	/**
+	 * Adds a new Employee
+	 * @param employee The Employee
+	 */
+	public void hire(Employee employee) {
 		employees.add(employee);
 	}
 
@@ -128,6 +139,7 @@ public class StoreFront extends Inventory {
 	 */
 	public boolean terminate(Employee employee, String reason, Manager manager) {
 		if(manager == null) return false;
+		if(manager.getRole() != Role.Administrator) return false;
 
 		return employees.remove(employee);
 	}

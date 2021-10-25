@@ -1,9 +1,26 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
 /**
  * A Manager
  */
 public class Manager extends Supervisor {
+
+	private static final Manager root;
+
+	static {
+		root = new Manager(0);
+		root.setName("Root", "Administrator");
+		root.setRole(Role.Administrator);
+		root.setPosition("Root");
+	}
+
+	/**
+	 * Gets the ultimate root user of this program
+	 * @return The root user that NO ONE SHOULD HAVE ACCESS TO!
+	 */
+	public static Manager getRoot() {
+		return root;
+	}
 
 	/**
 	 * A new manager

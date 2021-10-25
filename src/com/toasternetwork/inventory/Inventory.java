@@ -1,4 +1,4 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,7 +28,7 @@ public class Inventory extends Menulet<Object> {
 	 */
 	private void commit() {
 		try {
-			InventoryDatabase.writeContents(products);
+			Main.getInventory().writeContents(products);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -122,26 +122,50 @@ public class Inventory extends Menulet<Object> {
 		commit();
 	}
 
+	/**
+	 * Updates the product by SKU
+	 * @param product The updated Product
+	 */
+	public void updateProduct(Product product) {
+		int index = products.indexOf(getProduct(product.getSku()));
+		products.set(index, product);
+		commit();
+	}
+
 	@Override
 	public void build() {
 		super.menu.put("Add Product", m -> {
+			if (!checkPermission())
+				return this;
+
 			System.out.print("Name: ");
 			String name = input.nextLine();
 			System.out.print("Description: ");
 			String desc = input.nextLine();
 			System.out.print("Price: ");
 			double price = input.nextDouble();
+			input.nextLine();
 			System.out.print("Quantity: ");
 			long quantity = input.nextLong();
+			input.nextLine();
 
 			addProduct(name, desc, price, quantity);
 
 			return this;
 		});
-		super.menu.put("Modify Product", m -> null);
-		super.menu.put("Remove Product", m -> {
+		super.menu.put("Modify Product", m -> {
+			if (!checkPermission())
+				return this;
 			System.out.print("Sku: ");
 			long sku = input.nextLong();
+			return new ProductModification(m, getProduct(sku));
+		});
+		super.menu.put("Remove Product", m -> {
+			if (!checkPermission())
+				return this;
+			System.out.print("Sku: ");
+			long sku = input.nextLong();
+			input.nextLine();
 			Product pro = getProduct(sku);
 			if(products.remove(pro)) {
 				System.out.printf("The product \"%s\" has been successfully removed from inventory\n", pro.getName());

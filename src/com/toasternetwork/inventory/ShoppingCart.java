@@ -1,4 +1,4 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
