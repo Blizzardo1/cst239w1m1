@@ -1,4 +1,6 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * A Product
@@ -15,6 +17,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Gets the SKU for the product
 	 * @return The SKU
 	 */
+	@JsonProperty("sku")
 	public long getSku() {
 		return sku;
 	}
@@ -23,6 +26,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Sets the new sku
 	 * @param sku The replacing SKU number
 	 */
+	@JsonProperty("sku")
 	public void setSku(long sku) {
 		this.sku = sku;
 	}
@@ -65,6 +69,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Gets the current price for one quantity
 	 * @return The current price
 	 */
+	@JsonProperty("price")
 	public double getPrice() {
 		return price;
 	}
@@ -73,6 +78,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Sets the current price for one quanitty
 	 * @param price The new Price
 	 */
+	@JsonProperty("price")
 	public void setPrice(double price) {
 		this.price = price;
 	}
@@ -81,6 +87,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Gets the name of the product
 	 * @return The current name
 	 */
+	@JsonProperty("name")
 	public String getName() {
 		return name;
 	}
@@ -89,6 +96,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Sets the name of the product
 	 * @param name The new name
 	 */
+	@JsonProperty("name")
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -97,6 +105,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Gets the current description of the item
 	 * @return The current description
 	 */
+	@JsonProperty("description")
 	public String getDescription() {
 		return description;
 	}
@@ -105,6 +114,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Sets the description of the item
 	 * @param description The new Description
 	 */
+	@JsonProperty("description")
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -113,6 +123,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Gets the quanitity of the item in stock
 	 * @return The current quantity
 	 */
+	@JsonProperty("quantity")
 	public long getQuantity() {
 		return quantity;
 	}
@@ -121,6 +132,7 @@ public class Product implements Cloneable, Comparable<Product> {
 	 * Sets the quantity
 	 * @param quantity The new quantity
 	 */
+	@JsonProperty("quantity")
 	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}

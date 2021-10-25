@@ -1,4 +1,4 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
 /**
  * A Supervisor
@@ -21,9 +21,10 @@ public class Supervisor extends Employee {
 	 * @param employeeId Their new Id, must be unique
 	 * @param wage Their starting salary
 	 * @param position Their new position
+	 * @param role The role assigned
 	 */
-	public void hire(StoreFront store, String firstName, String lastName, long employeeId, double wage, String position) {
-		store.hire(firstName, lastName, employeeId, wage, position, this);
+	public void hire(StoreFront store, String firstName, String lastName, long employeeId, double wage, String position, Role role) {
+		store.hire(firstName, lastName, employeeId, wage, position, role, this);
 	}
 
 	/**
