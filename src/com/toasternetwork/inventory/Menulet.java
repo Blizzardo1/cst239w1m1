@@ -1,4 +1,4 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -58,6 +58,18 @@ public abstract class Menulet<T> {
 	public T execute(int option) {
 		String key = (String)menu.keySet().toArray()[option];
 		return menu.get(key).apply(this);
+	}
+
+	/**
+	 * Checks whether the logged in employee has access to a menu function
+	 * @return True if allowed
+	 */
+	public boolean checkPermission() {
+		if(Main.getLoggedIn().getRole() != Role.Administrator) {
+			System.out.println("You don't have the permission to do this action");
+			return false;
+		}
+		return true;
 	}
 
 	abstract void build();

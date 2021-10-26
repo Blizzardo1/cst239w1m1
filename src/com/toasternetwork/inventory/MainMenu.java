@@ -1,6 +1,7 @@
-package com.toasternetwork.examples;
+package com.toasternetwork.inventory;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * The Main Menu
@@ -55,18 +56,44 @@ public class MainMenu extends Menulet<Object> {
 
 		menu.put("Registers", m -> getRegisters());
 		menu.put("Inventory", m -> store);
-		menu.put("Management", m -> m);
+		menu.put("Management", m -> {
+			if (!checkPermission())
+				return this;
+			var lst = store.getEmployees();
+			if(lst.isEmpty()) {
+				System.out.println("No Employees registered!");
+				return m;
+			}
+			Scanner in = new Scanner(System.in);
+			System.out.print("Employee ID: ");
+			long id = in.nextLong();
+
+			Employee employee = null;
+			var optionalEmployee = lst.stream().filter(e -> e.getEmployeeId() == id).findFirst();
+			if(optionalEmployee.isPresent())
+				employee = optionalEmployee.get();
+
+			assert employee != null;
+			System.out.println(employee);
+
+			return m;
+		});
 		menu.put("Commit Inventory", m -> {
 			try {
-				InventoryDatabase.writeContents(store.getProducts());
+				Main.getInventory().writeContents(store.getProducts());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return m;
 		});
+		menu.put("Logout", m -> {
+			Main.setLoggedIn(null);
+			return Main.getLogin();
+		});
 		menu.put("Close Store", m -> {
+			if (!checkPermission())
+				return this;
 			Helper.clearScreen();
-			System.out.println(m);
 			System.out.println("Goodbye!");
 			System.exit(0);
 			return null;
