@@ -1,5 +1,3 @@
 # Project exclude paths
 /out/
 /inventory.json
-/employee.json
-/src/com/toasternetwork/inventory/diagram.uml
