@@ -1,0 +1,43 @@
+[ {
+  "reserved" : 0,
+  "price" : 400.0,
+  "name" : "9mm Pistol",
+  "description" : "A 9mm Pistol that is not a HighPoint",
+  "quantity" : 150,
+  "sku" : 1
+}, {
+  "reserved" : 0,
+  "price" : 200.0,
+  "name" : "Sword",
+  "description" : "Link's sword from Twilight Princess",
+  "quantity" : 1,
+  "sku" : 2
+}, {
+  "reserved" : 0,
+  "price" : 50.0,
+  "name" : "Light Armor",
+  "description" : "Light Armor",
+  "quantity" : 1000,
+  "sku" : 3
+}, {
+  "reserved" : 0,
+  "price" : 85.0,
+  "name" : "Heavy Armor",
+  "description" : "Super duper heavy armor",
+  "quantity" : 1000,
+  "sku" : 4
+}, {
+  "reserved" : 0,
+  "price" : 3.75,
+  "name" : "10 HP",
+  "description" : "Ten Health Points",
+  "quantity" : 998300,
+  "sku" : 5
+}, {
+  "reserved" : 0,
+  "price" : 1000.0,
+  "name" : "Full Health",
+  "description" : "100% Health restoration",
+  "quantity" : 1000,
+  "sku" : 6
+} ]
