@@ -32,6 +32,14 @@ public class Product implements Cloneable, Comparable<Product> {
 	}
 
 	/**
+	 * Gets the amount of reserved quantity
+	 * @return The total reserved amount
+	 */
+	public long getReserved() {
+		return reserved;
+	}
+
+	/**
 	 * Reserve stock from inventory
 	 * @param quantity The amount of stock to reserve
 	 */

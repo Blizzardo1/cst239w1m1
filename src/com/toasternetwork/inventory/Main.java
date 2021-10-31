@@ -40,6 +40,14 @@ public class Main {
     }
 
     /**
+     * Sets the new config inventory
+     * @param inv The Inventory to point to
+     */
+    public static void setInventory(ProductDatabase inv) {
+        inventory = inv;
+    }
+
+    /**
      * Gets the config for Employees
      * @return The Employee Database
      */

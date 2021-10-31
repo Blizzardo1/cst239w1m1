@@ -168,11 +168,28 @@ public class ShoppingCart extends Menulet<Object> {
 	}
 
 	/**
+	 * Gets the total of items in the cart
+	 * @return The total amount of items in the cart
+	 */
+	public long getCartCount() {
+		return cart.size();
+	}
+
+	/**
 	 * Clears out the entire order
 	 */
 	public void cancelOrder() {
 		cart.forEach(p -> mainMenu.getStore().getProduct(p.getSku()).release(p.getQuantity()));
 		cart.clear();
 		System.out.println("Order cancelled");
+	}
+
+	/**
+	 * Checks the cart if it contains a specified product
+	 * @param product The product to check if it is contained in the cart
+	 * @return True if the product remains in the cart
+	 */
+	public boolean containsProduct(Product product) {
+		return cart.contains(product);
 	}
 }
