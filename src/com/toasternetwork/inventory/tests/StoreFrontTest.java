@@ -41,7 +41,7 @@ class StoreFrontTest {
 	@Test
 	void getStoreId() {
 		TestHelper.print(testName, "Checking store ID is not zero");
-		assertTrue(sf.getStoreId() != 0);
+		assertTrue(sf.getStoreId() > 0);
 		TestHelper.complete();
 	}
 }
