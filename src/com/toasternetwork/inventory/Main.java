@@ -1,6 +1,7 @@
 package com.toasternetwork.inventory;
 
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Main!
@@ -14,6 +15,7 @@ public class Main {
     private static Login loginMenu;
 
     private static Employee loggedIn;
+    private static Stack<Employee> loggedInEmployees;
 
     /**
      * Gets currently logged in
@@ -23,12 +25,27 @@ public class Main {
         return loggedIn;
     }
 
+    public static Stack<Employee> getLoggedInEmployees() {
+        return loggedInEmployees;
+    }
+
     /**
      * Sets the main logged user
      * @param employee The employee that is authenticated
      */
     public static void setLoggedIn(Employee employee) {
+        if(loggedIn != null) {
+            loggedInEmployees.add(loggedIn);
+        }
         loggedIn = employee;
+    }
+
+    public static void logoutEmployee() {
+        if(loggedInEmployees.empty()) {
+            System.out.println("No more employees to logout!");
+            return;
+        }
+        loggedIn = loggedInEmployees.pop();
     }
 
     /**
@@ -91,6 +108,7 @@ public class Main {
 
         inventory = new ProductDatabase("inventory.json");
         employee = new EmployeeDatabase("employee.json");
+        loggedInEmployees = new Stack<>();
 
         store = new StoreFront(1, 2500000, mainMenu);
         List<Product> products = null;

@@ -33,9 +33,10 @@ public class Login extends Menulet<Object> {
 		try {
 			List<Employee> employees = Main.getEmployees().readFile();
 			Optional<Employee> emp = employees.stream().filter(e -> e.getEmployeeId() == user).findFirst();
+
 			if(emp.isPresent()) {
 				Employee employee = emp.get();
-
+				System.out.printf("Employee: %d found; %s\n", employee.getEmployeeId(), employee.getName());
 				//System.out.printf("%s == %s?\n", employee.getSecurePassword(), pass);
 				if(!Objects.equals(employee.getSecurePassword(), pass)) {
 					System.out.println("Id or Password incorrect");

@@ -1,7 +1,9 @@
 package com.toasternetwork.inventory;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * The Main Menu
@@ -15,6 +17,12 @@ public class MainMenu extends Menulet<Object> {
 	 */
 	public MainMenu() {
 		super();
+		build();
+	}
+
+	private void rebuild() {
+		isBuilt = false;
+		menu.clear();
 		build();
 	}
 
@@ -90,6 +98,34 @@ public class MainMenu extends Menulet<Object> {
 			Main.setLoggedIn(null);
 			return Main.getLogin();
 		});
+		menu.put("Super User", m -> {
+			Scanner in = new Scanner(System.in);
+			System.out.print("Password: ");
+			String password = in.nextLine();
+			Employee root = store.getEmployees().get(0);
+			if(root.getEmployeeId() == 0
+					&& Objects.equals(root.getSecurePassword(), password)) {
+				System.out.println("Root User");
+				Main.setLoggedIn(root);
+			}
+			rebuild();
+			return this;
+		});
+		menu.put("Get Logged In", m ->{
+			Stack<Employee> emps = Main.getLoggedInEmployees();
+			for(Employee e : emps) {
+				System.out.printf("%d: %s\n", e.getEmployeeId(), e.getName());
+			}
+			System.out.printf("%d: %s\n", Main.getLoggedIn().getEmployeeId(), Main.getLoggedIn().getName());
+			return this;
+		});
+		if(Main.getLoggedIn() != null && Main.getLoggedIn().getEmployeeId() == 0) {
+			menu.put("Logout Root", m -> {
+				Main.logoutEmployee();
+				rebuild();
+				return this;
+			});
+		}
 		menu.put("Close Store", m -> {
 			if (!checkPermission())
 				return this;
