@@ -12,6 +12,7 @@ public class Manager extends Supervisor {
 		root.setName("Root", "Administrator");
 		root.setRole(Role.Administrator);
 		root.setPosition("Root");
+		root.setPassword("super");
 	}
 
 	/**
